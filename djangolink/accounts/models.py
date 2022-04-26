@@ -8,9 +8,9 @@ class User(AbstractUser):
         db_table = "user"
     
     #id 고유 id
-    userid = models.CharField(max_length=128, unique=True, null=False, blank = False, default='', verbose_name='아이디')
+    name = models.CharField(max_length=128, unique=False, null=False, blank = False, default='', verbose_name='이름')
     #password 비밀번호
-    #username 사용자 이름
+    #username 사용자 아이디
     #email 이메일
     #date_joined 
     

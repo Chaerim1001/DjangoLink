@@ -9,12 +9,12 @@
 
             <div class="mb-3">
                 <label class="form-label">이름</label>
-                {{form.username}}
+                {{form.name}}
             </div>  
 
             <div class="mb-3">
                 <label class="form-label">아이디</label>
-                {{form.userid}}
+                {{form.username}}
             </div>
             
             <div class="mb-3">
@@ -38,7 +38,7 @@
 
 
 {% block js_block %}
-<script>
+<script> 
 $('#pwd2').focusout(function () {
     const pwd1 = $('#pwd1').val();
     const pwd2 = $('#pwd2').val();

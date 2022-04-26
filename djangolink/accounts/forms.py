@@ -13,15 +13,15 @@ class UserForm(forms.ModelForm):
 
     class Meta: 
         model = User
-        fields = ['userid','username','email']
+        fields = ['username','name','email']
         widgets = {
-            'userid': forms.TextInput(attrs={'placeholder': 'ID', 'required': 'true', 'class': 'form-control'}),
-            'username': forms.TextInput(attrs={'placeholder':'성명', 'required':'true', 'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'placeholder': 'ID', 'required': 'true', 'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'placeholder':'성명', 'required':'true', 'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'placeholder': '이메일 주소', 'required':'true', 'class': 'form-control', 'id':'email'})
         }
         label = {
-            'userid': 'userid',
             'username': 'username',
+            'name': 'name',
             'email': 'email'
         }
 
@@ -31,3 +31,17 @@ class UserForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class LoginForm(forms.ModelForm):
+    class Meta: 
+        model = User
+        fields = ['username','password']
+        widgets = {
+            'username': forms.TextInput(attrs={'placeholder': 'ID', 'required': 'true', 'class': 'form-control','name': 'username'}),
+            'password': forms.PasswordInput(attrs={'placeholder': 'Password', 'required': 'true','class': 'form-control', 'name': 'password'})
+           }
+        label = {
+            'username': 'username',
+            'password': 'password'
+            }

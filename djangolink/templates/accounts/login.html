@@ -1,0 +1,26 @@
+{% extends '../base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="card border-primary mb-3" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 50px">
+    <div class="card-body">
+    <form method="post"> {% csrf_token %} 
+
+        <div class="mb-3">
+            <label class="form-label">아이디</label>
+            {{form.username}}
+        </div>
+        
+        <div class="mb-3">
+            <label class="form-label">비밀번호</label>
+            {{form.password}}
+        </div>  
+        <button type="submit" class="btn btn-primary">로그인</button>
+      </form>
+    </div>
+</div>
+
+  {% endblock content %}
+
+  
