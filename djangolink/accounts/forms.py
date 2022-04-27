@@ -1,6 +1,5 @@
 from django import forms
 from .models import User
-from django.core.exceptions import ValidationError
 
 class UserForm(forms.ModelForm):
     password1 = forms.CharField(
