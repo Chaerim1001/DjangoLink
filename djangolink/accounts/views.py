@@ -1,13 +1,16 @@
-import re
-from urllib import request
 from django.shortcuts import redirect, render
 
 from .forms import UserForm, LoginForm
 from .models import User
 from django.contrib import auth
+from django.http import JsonResponse 
+
 
 def join(request):
     if request.method == 'GET':
+        user_pk = request.session.get('user')
+        if user_pk:
+            return redirect('mypage')
         user_form = UserForm()
         return render(request, 'accounts/join.html', {'form': user_form})
     elif request.method == 'POST':
@@ -18,6 +21,9 @@ def join(request):
 
 def login(request):
     if request.method == 'GET':
+        user_pk = request.session.get('user')
+        if user_pk:
+            return redirect('mypage')
         login_form = LoginForm()
         return render(request, 'accounts/login.html', {'form': login_form})
     elif request.method == 'POST':
@@ -36,11 +42,18 @@ def login(request):
         if user is not None:
             request.session['user'] = user.id
             auth.login(request, user)
-            print('로그인 성공')
             return redirect('mypage')
         else:
-            print('아이디 및 비밀번호를 확인해주세요')
             return redirect('login')
         
 
-
+def idCheck(request): #회원가입시 아이디 중복 체크
+    try:
+        user = User.objects.get(username=request.GET['username'])
+    except:
+        user = None
+    result = {
+        'result':'success',
+        'data' : "not exist" if user is None else "exist"
+    }
+    return JsonResponse(result)

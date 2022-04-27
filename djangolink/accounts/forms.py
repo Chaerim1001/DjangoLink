@@ -1,11 +1,10 @@
-from cProfile import label
 from django import forms
 from .models import User
 from django.core.exceptions import ValidationError
 
 class UserForm(forms.ModelForm):
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs={'required': 'true', 'placeholder': '비밀번호', 'class':'form-control', 'id':'pwd1'}),
+        widget=forms.PasswordInput(attrs={'required': 'true', 'placeholder': '비밀번호', 'class':'form-control', 'id':'pwd1', 'check': 'false'}),
     )
     password2 = forms.CharField(
         widget=forms.PasswordInput(attrs={'required': 'true', 'placeholder': '비밀번호 확인','class':'form-control','id':'pwd2'}),
@@ -15,7 +14,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['username','name','email']
         widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'ID', 'required': 'true', 'class': 'form-control'}),
+            'username': forms.TextInput(attrs={'placeholder': 'ID', 'required': 'true', 'class': 'form-control', 'id':'username', 'check':'false'}),
             'name': forms.TextInput(attrs={'placeholder':'성명', 'required':'true', 'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'placeholder': '이메일 주소', 'required':'true', 'class': 'form-control', 'id':'email'})
         }

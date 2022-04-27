@@ -5,7 +5,7 @@
 {% block content %}
     <div class="card border-primary mb-3" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 50px">
         <div class="card-body">
-        <form method="post"> {% csrf_token %} 
+        <form id="joinform" method="post"> {% csrf_token %} 
 
             <div class="mb-3">
                 <label class="form-label">이름</label>
@@ -16,7 +16,9 @@
                 <label class="form-label">아이디</label>
                 {{form.username}}
             </div>
-            
+            <button type="button" class="btn btn-primary mb-4" id="id_check_btn">아이디 중복 확인</button>
+            <p id="id_check" style="color: blue">아이디 중복 확인 완료</p>
+
             <div class="mb-3">
                 <label class="form-label">비밀번호</label>
                 {{form.password1}}
@@ -24,13 +26,16 @@
             <div class="mb-3">
                 <label class="form-label">비밀번호 확인</label>
                 {{form.password2}}
-            </div>  
+            </div> 
+
+            <p id="pwd_check_true" style="color: blue">비밀번호가 일치합니다.</p>
+            <p id="pwd_check_false" style="color: red">비밀번호가 일치하지 않습니다.</p>
 
             <div class="mb-3">
               <label class="form-label">E-mail</label>
               {{form.email}}
             </div>
-            <button type="submit" class="btn btn-primary">회원가입</button>
+            <button type="submit" class="btn btn-primary" id="submit_btn">회원가입</button>
           </form>
         </div>
     </div>
@@ -39,19 +44,99 @@
 
 {% block js_block %}
 <script> 
-$('#pwd2').focusout(function () {
-    const pwd1 = $('#pwd1').val();
-    const pwd2 = $('#pwd2').val();
+    $('#pwd_check_true').hide();
+    $('#pwd_check_false').hide();
+    $('#id_check').hide();
+    
+    $('#username').change(() => {
+        $('#id_check').hide();
+        $('#id_check_btn').show();
+        $('#username').attr("check", "false");
+        })
 
-    if ( pwd1 != '' && pwd2 == '' ) {
-        null;
-    } else if (pwd1 != "" || pwd2 != "") {
-        if (pwd1 == pwd2) {
-            pwdCheck = true
-        } else {
-            alert('비밀번호를 정확히 입력해주세요')
+    $('#id_check_btn').click(() => {
+        const username = $('#username').val()
+        if(username == ''){
+            alert('아이디를 입력해주세요.')
+            return;
         }
-    }
-});
+        $.ajax({
+            url: "{% url 'id_check' %}",
+            type:'GET',
+            data:{
+                'username':username
+            },
+            dataType:'json',
+            success:function(response){
+                if(response.result != 'success'){
+                    console.error(response.data)
+                    return;
+                }
+                if(response.data == 'exist'){
+                    alert("존재하는 아이디입니다");
+                    $('#username').val('').focus();
+                    return;
+                }else{
+                    alert("사용 가능한 아이디입니다");
+                    $('#username').attr("check", "true");
+                    $('#id_check_btn').hide();
+                    $('#id_check').show();
+                    return;
+                }
+            },
+            error : (xhr, error) => {
+                alert("서버와의 통신에서 문제가 발생했습니다.");
+                console.error("error : " + error);
+            }
+        })
+    });
+
+    $('#pwd1').change(()=>{
+        pwd_check();
+    });
+
+    $('#pwd2').change(()=>{
+        pwd_check();
+    });
+
+    function pwd_check() {
+        const pwd1 = $('#pwd1').val();
+        const pwd2 = $('#pwd2').val();
+
+        if ( pwd1 != '' && pwd2 == '' ) {
+            return;
+        } else if (pwd1 != "" || pwd2 != "") {
+            if (pwd1 == pwd2) {
+                $('#pwd1').attr("check", "true");
+                $('#pwd_check_false').hide();
+                $('#pwd_check_true').show();
+                return;
+            } else {
+                $('#pwd1').attr("check", "false");
+                $('#pwd_check_true').hide();
+                $('#pwd_check_false').show();
+                return;
+            }
+        }
+    };
+
+    const joinForm = document.getElementById("joinform");
+
+    joinForm.addEventListener("submit" , (e) => {
+      if( $('#username').attr("check") != "true") {
+        alert("아이디 중복 확인을 해주세요.");
+        e.preventDefault();
+        $('#username').focus();
+        return;
+      }
+
+      if($('#pwd1').attr("check") != "true" ) {
+        alert("비밀번호를 다시 확인해주세요.");
+        e.preventDefault();
+        $('#pwd2').focus();
+        return;
+      }
+    });
+
 </script>
 {% endblock js_block %}
