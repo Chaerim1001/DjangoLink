@@ -5,7 +5,18 @@ from accounts.models import User
 
 
 def mypage(request):
-    return render(request, 'mypage/mypage.html' )
+    user_pk = request.session.get('user')
+    if user_pk:
+        if request.method == 'GET':
+            category_list = Category.objects.filter(id=user_pk)
+            user = User.objects.get(id=user_pk)
+            content = {
+                'category_list':category_list,
+                'user': user.name
+            }
+            return render(request, 'mypage/mypage.html', content )
+    else:
+        return redirect('login')
 
 
 def newCategory(request):

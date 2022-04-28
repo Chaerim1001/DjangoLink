@@ -4,6 +4,7 @@ from .forms import UserForm, LoginForm
 from .models import User
 from django.contrib import auth
 from django.http import JsonResponse 
+from django.contrib.auth.decorators import login_required
 
 
 def join(request):
@@ -57,3 +58,10 @@ def idCheck(request): #회원가입시 아이디 중복 체크
         'data' : "not exist" if user is None else "exist"
     }
     return JsonResponse(result)
+
+
+@login_required
+def logout(request): #로그아웃
+    print(request)
+    auth.logout(request) #로그아웃하면 알아서 세션 삭제됨.
+    return redirect('login')
