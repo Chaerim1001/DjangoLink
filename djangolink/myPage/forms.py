@@ -1,10 +1,10 @@
 from django import forms
-from .models import Category
+from .models import *
 
 class CategoryForm(forms.ModelForm):
     class Meta: 
         model = Category
-        fields = ['category_name','description','share']
+        fields = ['category_name','description']
         widgets = {
             'category_name': forms.TextInput(attrs={'required': 'true', 'class': 'form-control', 'name':'category_name'}),
             'description': forms.TextInput(attrs={'required':'true', 'class': 'form-control','name': 'description'}),

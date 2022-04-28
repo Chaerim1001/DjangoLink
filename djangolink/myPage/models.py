@@ -22,6 +22,6 @@ class Link(models.Model):
     
     link_id = models.AutoField(primary_key=True)
     link_url = models.CharField(max_length=128, null=False, blank = False, default='', verbose_name='링크 주소')
-    description = models.TextField(verbose_name='링크 설명') 
+    description = models.TextField(default='', verbose_name='링크 설명') 
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="카테고리 id")
 
