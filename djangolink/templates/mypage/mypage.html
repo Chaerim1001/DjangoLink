@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <b> {{category.category_name}} </b>
                         {% if category.share == False %}
-                        <img src='private.png'></img>
+                        <img src={% static 'image/private.png' %} style="width: 13px;"></img>
                         {% endif %}
                         <p style="color: gray; font-style: italic;"> {{category.description}} </p>
                     </div>
