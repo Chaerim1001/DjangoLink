@@ -1,4 +1,4 @@
-from django.http import JsonResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import CategoryForm
@@ -93,3 +93,11 @@ def updateLink(request, category_id):
                     }
                 return JsonResponse(result)
 
+
+def deleteLink(request, category_id, link_id):
+        user_pk = request.session.get('user')
+        if user_pk:
+            link = Link.objects.get(link_id=link_id)
+            if link.category_id_id==category_id:
+                link.delete()
+                return redirect('category_detail', category_id)

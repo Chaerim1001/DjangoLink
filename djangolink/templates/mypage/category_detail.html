@@ -15,7 +15,7 @@
     </br>
         <b>{{link.description}}</b>
         <button type="button" data-bs-toggle="modal" data-bs-target="#updateLinkModal{{link.link_id}}" id="updatelink_btn"><img src={% static 'image/edit.png' %} style="width: 13px;"></img></button>
-        <img src={% static 'image/delete.png' %} style="width: 13px;"></img>
+        <a href="{% url 'delete_link' category.category_id link.link_id %}"><button type="button" id="deletelink_btn"><img src={% static 'image/delete.png' %} style="width: 13px;"></img></button></a>
         </br>
         <a href="{{link.link_url}}">
             {{link.link_url}}
