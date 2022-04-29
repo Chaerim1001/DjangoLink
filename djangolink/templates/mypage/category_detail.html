@@ -12,15 +12,44 @@
         <p style="color: gray; font-style: italic;"> {{category.description}} </p>
 
         {%for link in link_list%}
+    </br>
+        <b>{{link.description}}</b>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#updateLinkModal{{link.link_id}}" id="updatelink_btn"><img src={% static 'image/edit.png' %} style="width: 13px;"></img></button>
+        <img src={% static 'image/delete.png' %} style="width: 13px;"></img>
+        </br>
         <a href="{{link.link_url}}">
-            <p>{{link.description}} _ {{link.link_url}}</p>
+            {{link.link_url}}
         </a>
+        </br>
+
+        <!-- 링크 수정 Modal -->
+        <div class="modal fade" id="updateLinkModal{{link.link_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel"><b>링크 수정하기</b></h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <input type="text" size="50" placeholder="링크 설명" id="update_description" value="{{link.description}}">
+                </br>
+            </br>
+                  <input type="text" size="50" placeholder="링크 주소" id="update_link_url" value="{{link.link_url}}" required>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                  <button type="button" class="btn btn-primary"onclick="updateLink({{link.link_id}})">수정하기</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         {% endfor%}
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLinkModal" id="link_btn">링크 추가</button>
     </div>
+    <button type="button" class="btn btn-primary" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 25px" data-bs-toggle="modal" data-bs-target="#addLinkModal" id="link_btn">링크 추가</button>
 </div>
 
-  <!-- Modal -->
+  <!-- 링크 추가 Modal -->
   <div class="modal fade" id="addLinkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -29,8 +58,10 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <input type="text" placeholder="링크 주소" id="link_url" required>
-          <input type="text" placeholder="링크 설명" id="description">
+          <input type="text" size="50"placeholder="링크 설명" id="description">
+        </br>
+    </br>
+          <input type="text" size="50"placeholder="링크 주소" id="link_url" required>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -39,6 +70,9 @@
       </div>
     </div>
   </div>
+
+         
+  
 {% endblock content %}
 
 
@@ -84,5 +118,48 @@
             }
         })
     };
+
+    function updateLink(link_id){
+        link_url = $('#update_link_url').val();
+        description = $('#update_description').val() ;
+        
+        if(link_url == ''){
+         alert('링크주소를 입력해주세요.');
+         return;
+         }
+    $.ajax({
+             url: "{% url 'update_link' category.category_id%}",
+             type:'POST',
+             headers: {
+                 'X-CSRFTOKEN' : '{{ csrf_token }}'
+              },
+             data:{
+                 'link_id': link_id,
+                 'link_url':link_url,
+                 'description':description
+             },
+             dataType:'json',
+             success:function(response){
+                 if(response.result != 'success'){
+                     console.error(response.data)
+                     return;
+                 }
+                 if(response.data == 'update success'){
+                     alert("링크 수정 완료");
+                     window.location.reload()
+                     return;
+                 }else{
+                     alert("링크 수정 실패. 다시 시도해주세요.");
+                     window.location.reload();
+                     return;
+                 }
+             },
+             error : (xhr, error) => {
+                 alert("서버와의 통신에서 문제가 발생했습니다.");
+                 console.error("error : " + error);
+             }
+         })
+     };
+
 </script>
 {% endblock js_block %}

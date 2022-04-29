@@ -3,11 +3,14 @@
 
 {% block content %}
     <b>{{user}}</b> 님의 마이페이지
+    <a href="{% url 'logout'%}"><button type="button" class="btn btn-primary"> 로그아웃 </button></a>
 
     <div class="card border-primary mb-3" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 50px">
 
         {% if category_list %}
+        
             {% for category in category_list %}
+            <a href="{% url 'category_detail' category.category_id %}" style="text-decoration: none;">
                 <div class="card border-primary mb-3" style="width: 250px; margin-right: auto; margin-left:auto; margin-top: 50px">
                     <div class="card-body">
                         <b> {{category.category_name}} </b>
@@ -17,16 +20,16 @@
                         <p style="color: gray; font-style: italic;"> {{category.description}} </p>
                     </div>
                 </div>
+            </a>
             {% endfor %}
         {% else %}
             <b>카테고리가 없습니다. 새로운 카테고리를 만들어보세요!</b>
         {% endif %}
         <a href="{% url 'new_category'%}">
-            <button type="button" class="btn btn-primary">새 카테고리 생성</button>
+            <button type="button" class="btn btn-primary" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 25px">새 카테고리 생성</button>
         </a>
     <div>
     
-    <a href="{% url 'logout'%}"> 로그아웃 </a>
 
         
 {% endblock content %}

@@ -1,4 +1,3 @@
-from hashlib import new
 from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from .models import *
@@ -76,4 +75,21 @@ def newLink(request, category_id):
             return JsonResponse(result)
 
 
-
+def updateLink(request, category_id):
+    
+    if request.method == 'POST':
+        user_pk = request.session.get('user')
+        if user_pk:
+            link = Link.objects.get(link_id=request.POST['link_id'])
+            try:
+                link.link_url = request.POST['link_url']
+                link.description = request.POST['description']
+                link.save()
+            except: 
+                link = None
+            result = {
+                'result':'success',
+                'data' : "update fail" if link is None else "update success"
+                }
+            return JsonResponse(result)
+       
