@@ -120,3 +120,12 @@ def updateCategory(request, category_id):
                 category.share = False
             category.save()
             return redirect('category_detail', category_id)
+
+
+def deleteCategory(request, category_id):
+        user_pk = request.session.get('user')
+        if user_pk:
+            category = Category.objects.get(category_id=category_id)
+            category.delete()
+            return redirect('mypage')
+            

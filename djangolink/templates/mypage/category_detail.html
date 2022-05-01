@@ -12,6 +12,7 @@
         스크랩수: {{category.scrap}}
         {% endif %}
         <a href="{% url 'update_category' category.category_id %}"><button type="button"><img src={% static 'image/edit.png' %} style="width: 13px;"></img></button></a>
+        <a href="{% url 'delete_category' category.category_id %}"><button type="button"><img src={% static 'image/delete.png' %} style="width: 13px;"></img></button></a>
         <p style="color: gray; font-style: italic;"> {{category.description}} </p>
         <p style="color: gray; font-style: italic; font-size:10px"> {{category.dt_modified}} </p>
         
