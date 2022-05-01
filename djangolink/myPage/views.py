@@ -80,7 +80,7 @@ def updateLink(request, category_id):
         user_pk = request.session.get('user')
         if user_pk:
             link = Link.objects.get(link_id=request.POST['link_id'])
-            if(link.category_id==category_id):
+            if(link.category_id_id==category_id):
                 try:
                     link.link_url = request.POST['link_url']
                     link.description = request.POST['description']
