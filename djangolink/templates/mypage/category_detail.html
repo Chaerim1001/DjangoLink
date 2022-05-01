@@ -8,9 +8,12 @@
         <b> {{category.category_name}} </b>
         {% if category.share == False %}
         <img src={% static 'image/private.png' %} style="width: 13px;"></img>
+        {%else%}
+        스크랩수: {{category.scrap}}
         {% endif %}
         <p style="color: gray; font-style: italic;"> {{category.description}} </p>
-
+        <p style="color: gray; font-style: italic; font-size:10px"> {{category.dt_modified}} </p>
+        
         {%for link in link_list%}
     </br>
         <b>{{link.description}}</b>
