@@ -25,7 +25,7 @@ def newCategory(request):
     if user_pk:
         if request.method == 'GET':
             new_form = CategoryForm()
-            return render(request, 'mypage/new_category.html', {'form': new_form})
+            return render(request, 'mypage/post_category.html', {'form': new_form})
         elif request.method == 'POST':
             new_category = Category()
             new_category.id = User.objects.get(id=user_pk)
@@ -101,3 +101,22 @@ def deleteLink(request, category_id, link_id):
             if link.category_id_id==category_id:
                 link.delete()
                 return redirect('category_detail', category_id)
+
+
+def updateCategory(request, category_id):
+    user_pk = request.session.get('user')
+    if user_pk: 
+        category = Category.objects.get(category_id=category_id)
+        if request.method == 'GET':
+            form = CategoryForm(instance=category)
+            return render(request, 'mypage/post_category.html', {'form': form})
+        elif request.method == 'POST':
+            category.category_name = request.POST.get('category_name')
+            category.description = request.POST.get('description')
+            share = request.POST.get('share')
+            if share == 'true':
+                category.share = True
+            else:
+                category.share = False
+            category.save()
+            return redirect('category_detail', category_id)
