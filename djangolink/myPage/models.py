@@ -12,6 +12,8 @@ class Category(models.Model):
     description = models.TextField(verbose_name='카테고리 설명') 
     share = models.BooleanField(verbose_name='공유 여부')
     scrap = models.IntegerField(default=0, verbose_name='스크랩 횟수')
+    dt_created = models.DateTimeField(auto_now_add=True)
+    dt_modified = models.DateTimeField(auto_now=True)
     id = models.ForeignKey(accounts_models.User, on_delete=models.CASCADE, verbose_name="카테고리 사용자 id")
 
 
