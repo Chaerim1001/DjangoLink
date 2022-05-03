@@ -5,6 +5,11 @@ from .forms import CategoryForm
 from accounts.models import User
 
 
+def main(request):
+    if request.method == 'GET':
+        return render(request, 'main/home.html')
+
+
 def mypage(request):
     user_pk = request.session.get('user')
     if user_pk:
