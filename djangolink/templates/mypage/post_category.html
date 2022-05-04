@@ -3,34 +3,61 @@
 
 
 {% block content %}
-    <div class="card border-primary mb-3" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 50px">
-        <div class="card-body">
-        <form id="categoryform" method="post"> {% csrf_token %} 
-
-            <div class="mb-3">
-                <label class="form-label">카테고리 이름</label>
-                {{form.category_name}}
-            </div>  
-
-            <div class="mb-3">
-                <label class="form-label">카테고리 설명</label>
-                {{form.description}}
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">카테고리 공개 여부</label>
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="share" id="btnradio1" autocomplete="off" checked value="true">
-                    <label class="btn btn-outline-primary" for="btnradio1">Public</label>
-                  
-                    <input type="radio" class="btn-check" name="share" id="btnradio2" autocomplete="off" value="false">
-                    <label class="btn btn-outline-primary" for="btnradio2">Private</label>
+    <div id="contact" class="contact-us section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.25s">
+              <form id="contact" action="" method="post"> {% csrf_token %} 
+                <div class="row">
+                  <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading">
+                      <h6>Linkshare</h6>
+                      <h2><span>New Category</span></h2>
+                    </div>
                   </div>
+                  <div class="col-lg-6 offset-lg-3">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <fieldset>
+                            {{form.category_name}}
+                        </fieldset>
+                      </div>
+                      <div class="col-lg-6">
+                        <fieldset>
+                            {{form.description}}
+                        </fieldset>
+                      </div>
+                            <div class="col-lg-6 offset-lg-3" role="group">
+                                <label class="form-label" style="font-size: 15px;
+                                font-weight: 700;
+                                color: #33ccc5;
+                                text-transform: uppercase;
+                                margin-bottom: 15px;">카테고리 공개 여부</label>
+                                <div class="row">
+                       
+                                <input type="radio" name="share" id="btnradio1" autocomplete="off" checked value="true">
+                                <label for="btnradio1">Public</label>
+                                <input type="radio" name="share" id="btnradio2" autocomplete="off" value="false">
+                                <label for="btnradio2">Private</label>
+                              </div>
+                            </div>
+
+
+
+                      <div class="col-lg-12">
+                        <fieldset>
+                          <button type="submit" id="form-submit" class="main-button ">작성 완료</button>
+                        </fieldset>
+                      </div>
+                    </div>
+                  </div>
+                 
+                </div>
+              </form>
             </div>
-            <button type="submit" class="btn btn-primary" id="submit_btn">완료</button>
-          </form>
+          </div>
         </div>
-    </div>
+      </div>
 {% endblock content %}
 
 
