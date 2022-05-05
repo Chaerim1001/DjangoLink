@@ -3,31 +3,56 @@
 
 
 {% block content %}
-<div class="card border-primary mb-3" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 50px">
-    <div class="card-body">
-        <b> {{category.category_name}} </b>
-        {% if category.share == False %}
-        <img src={% static 'image/private.png' %} style="width: 13px;"></img>
-        {%else%}
-        스크랩수: {{category.scrap}}
-        {% endif %}
-        <a href="{% url 'update_category' category.category_id %}"><button type="button"><img src={% static 'image/edit.png' %} style="width: 13px;"></img></button></a>
-        <a href="{% url 'delete_category' category.category_id %}"><button type="button"><img src={% static 'image/delete.png' %} style="width: 13px;"></img></button></a>
-        <p style="color: gray; font-style: italic;"> {{category.description}} </p>
-        <p style="color: gray; font-style: italic; font-size:10px"> {{category.dt_modified}} </p>
-        
-        {%for link in link_list%}
-    </br>
-        <b>{{link.description}}</b>
-        <button type="button" data-bs-toggle="modal" data-bs-target="#updateLinkModal{{link.link_id}}" id="updatelink_btn"><img src={% static 'image/edit.png' %} style="width: 13px;"></img></button>
-        <a href="{% url 'delete_link' category.category_id link.link_id %}"><button type="button" id="deletelink_btn"><img src={% static 'image/delete.png' %} style="width: 13px;"></img></button></a>
-        </br>
-        <a href="{{link.link_url}}">
-            {{link.link_url}}
-        </a>
-        </br>
 
-        <!-- 링크 수정 Modal -->
+    <div id="services" class="our-services section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+              <div class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                  <h2>{{category.category_name}}
+                    {% if category.share == False %}
+                    <img src={% static 'images/private.png' %} style="width: 13px;"></img>
+        {%else%}
+        <p>스크랩수: {{category.scrap}}</p>
+        {% endif %}
+                  </h2>
+                <h6>{{category.description}}
+        <a href="{% url 'update_category' category.category_id %}"><img src={% static 'images/edit.png' %} style="width: 13px;"></img></a>
+        <a href="{% url 'delete_category' category.category_id %}"><img src={% static 'images/delete.png' %} style="width: 13px;"></img></a></h6>
+        <div class="main-green-button scroll-to-section">
+            <a data-bs-toggle="modal" data-bs-target="#addLinkModal" id="link_btn">링크 추가</a>
+          </div>
+              </div>
+            </div>
+           
+        </div>
+       
+    </div>
+          
+        <div class="container-fluid">
+          <div class="row">
+            {%for link in link_list%}
+            <div class="col-lg-4">
+              <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="icon">
+                      <img src="{% static 'images/service-icon-01.png' %}" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <div class="right-content">
+                        <h4>{{link.description}}</h4>
+                        <a href = "{{link.link_url}}"><p>{{link.link_url}}</p></a>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#updateLinkModal{{link.link_id}}" id="updatelink_btn"><img src={% static 'images/edit.png' %} style="width: 13px;"></img></button>
+        <a href="{% url 'delete_link' category.category_id link.link_id %}"><button type="button" id="deletelink_btn"><img src={% static 'images/delete.png' %} style="width: 13px;"></img></button></a>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+
+                <!-- 링크 수정 Modal -->
         <div class="modal fade" id="updateLinkModal{{link.link_id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -48,17 +73,19 @@
               </div>
             </div>
           </div>
+          {%endfor%}
+        </div>
+                
+        </div>
+        
 
-        {% endfor%}
-    </div>
-    <button type="button" class="btn btn-primary" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 25px" data-bs-toggle="modal" data-bs-target="#addLinkModal" id="link_btn">링크 추가</button>
-</div>
 
   <!-- 링크 추가 Modal -->
   <div class="modal fade" id="addLinkModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
+            
           <h5 class="modal-title" id="exampleModalLabel"><b>링크 추가하기</b></h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
