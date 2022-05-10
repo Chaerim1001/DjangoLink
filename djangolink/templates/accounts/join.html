@@ -3,42 +3,47 @@
 
 
 {% block content %}
-    <div class="card border-primary mb-3" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 50px">
-        <div class="card-body">
-        <form id="joinform" method="post"> {% csrf_token %} 
+<div id="contact" class="contact-us section">
+        <div class="container">
+          <div class="row" style="display: flex;
+          justify-content: center">
+            <div id="form-div" class="col-lg-8 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.25s">
+              <form id="contact" action="" method="post"> {% csrf_token %} 
+                <div class="row">
+                  <div class="col-lg-6 offset-lg-3">
+                    <div class="section-heading">
+                      <h6>Linkshare</h6>
+                      <h2><span>Join</span></h2>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 offset-lg-3">
+                    <div class="row">
+                      <div class="col-lg-12">
+                            {{form.name}}{{form.username}}
+                            <button type="button" class="btn btn-primary mb-4" id="id_check_btn">아이디 중복 확인</button>
+                            {{form.password1}}      
+                            {{form.password2}}
+                            <p id="pwd_check_true" style="color: blue">비밀번호가 일치합니다.</p>
+                            <p id="pwd_check_false" style="color: red">비밀번호가 일치하지 않습니다.</p>
+                            {{form.email}}
 
-            <div class="mb-3">
-                <label class="form-label">이름</label>
-                {{form.name}}
-            </div>  
-
-            <div class="mb-3">
-                <label class="form-label">아이디</label>
-                {{form.username}}
+                      </div>
+                      <div class="col-lg-12">
+                        <fieldset>
+                          <button type="submit" id="form-submit" class="main-button ">작성 완료</button>
+                        </fieldset>
+                    </br>
+                        </div>
+                    </div>
+                  </div>
+                 
+                </div>
+              </form>
             </div>
-            <button type="button" class="btn btn-primary mb-4" id="id_check_btn">아이디 중복 확인</button>
-            <p id="id_check" style="color: blue">아이디 중복 확인 완료</p>
-
-            <div class="mb-3">
-                <label class="form-label">비밀번호</label>
-                {{form.password1}}
-            </div>  
-            <div class="mb-3">
-                <label class="form-label">비밀번호 확인</label>
-                {{form.password2}}
-            </div> 
-
-            <p id="pwd_check_true" style="color: blue">비밀번호가 일치합니다.</p>
-            <p id="pwd_check_false" style="color: red">비밀번호가 일치하지 않습니다.</p>
-
-            <div class="mb-3">
-              <label class="form-label">E-mail</label>
-              {{form.email}}
-            </div>
-            <button type="submit" class="btn btn-primary" id="submit_btn">회원가입</button>
-          </form>
+          </div>
         </div>
-    </div>
+      </div>
+    
 {% endblock content %}
 
 
@@ -46,10 +51,8 @@
 <script> 
     $('#pwd_check_true').hide();
     $('#pwd_check_false').hide();
-    $('#id_check').hide();
     
     $('#username').change(() => {
-        $('#id_check').hide();
         $('#id_check_btn').show();
         $('#username').attr("check", "false");
         })
@@ -80,7 +83,6 @@
                     alert("사용 가능한 아이디입니다");
                     $('#username').attr("check", "true");
                     $('#id_check_btn').hide();
-                    $('#id_check').show();
                     return;
                 }
             },
@@ -120,7 +122,9 @@
         }
     };
 
-    const joinForm = document.getElementById("joinform");
+    
+    const formDiv = document.getElementById("form-div");
+    const joinForm = formDiv.querySelector("form");
 
     joinForm.addEventListener("submit" , (e) => {
       if( $('#username').attr("check") != "true") {
