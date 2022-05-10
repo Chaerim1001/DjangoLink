@@ -42,9 +42,13 @@ https://templatemo.com/tm-563-seo-dream
                 <!-- ***** Logo End ***** -->
                 <!-- ***** Menu Start ***** -->
                 <ul class="nav">
-                  <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-                  <li class="scroll-to-section"><a href="#features">Mypage</a></li>
-                  <li class="scroll-to-section"><div class="main-blue-button"><a href="#contact">Login</a></div></li> 
+                  <li class="scroll-to-section"><a href="{% url 'main' %}" class="active">Home</a></li>
+                  <li class="scroll-to-section"><a href="{% url 'mypage' %}">Mypage</a></li>
+                  {% if user_pk %}
+                  <li class="scroll-to-section"><div class="main-blue-button"><a href="{% url 'logout' %}">Logout</a></div></li> 
+                  {% else %}
+                  <li class="scroll-to-section"><div class="main-blue-button"><a href="{% url 'login' %}">Login</a></div></li> 
+                  {% endif %}
                 </ul>        
                 <a class='menu-trigger'>
                     <span>Menu</span>

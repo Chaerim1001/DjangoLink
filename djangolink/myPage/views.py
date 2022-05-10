@@ -7,7 +7,8 @@ from accounts.models import User
 
 def main(request):
     if request.method == 'GET':
-        return render(request, 'main/home.html')
+        user_pk = request.session.get('user')
+        return render(request, 'main/home.html', {'user_pk':user_pk})
 
 
 def mypage(request):
@@ -18,7 +19,8 @@ def mypage(request):
             user = User.objects.get(id=user_pk)
             content = {
                 'category_list':category_list,
-                'user': user.name
+                'user': user.name,
+                'user_pk': user_pk
             }
             return render(request, 'mypage/mypage.html', content )
     else:
@@ -30,7 +32,7 @@ def newCategory(request):
     if user_pk:
         if request.method == 'GET':
             new_form = CategoryForm()
-            return render(request, 'mypage/post_category.html', {'form': new_form})
+            return render(request, 'mypage/post_category.html', {'form': new_form, 'user_pk': user_pk})
         elif request.method == 'POST':
             new_category = Category()
             new_category.id = User.objects.get(id=user_pk)
@@ -56,7 +58,8 @@ def categoryDetail(request, category_id):
             link_list = Link.objects.filter(category_id=category_id)
             content = {
                 'category': category,
-                'link_list': link_list
+                'link_list': link_list,
+                'user_pk': user_pk
             }
             return render(request, 'mypage/category_detail.html', content)
 
@@ -114,7 +117,7 @@ def updateCategory(request, category_id):
         category = Category.objects.get(category_id=category_id)
         if request.method == 'GET':
             form = CategoryForm(instance=category)
-            return render(request, 'mypage/post_category.html', {'form': form})
+            return render(request, 'mypage/post_category.html', {'form': form, 'user_pk':user_pk})
         elif request.method == 'POST':
             category.category_name = request.POST.get('category_name')
             category.description = request.POST.get('description')
