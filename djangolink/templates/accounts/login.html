@@ -3,24 +3,52 @@
 
 
 {% block content %}
-<div class="card border-primary mb-3" style="width: 500px; margin-right: auto; margin-left:auto; margin-top: 50px">
-    <div class="card-body">
-    <form method="post"> {% csrf_token %} 
-
-        <div class="mb-3">
-            <label class="form-label">아이디</label>
-            {{form.username}}
+<div id="contact" class="contact-us section">
+    <div class="container">
+      <div class="row" style="display: flex;
+      justify-content: center">
+        <div class="col-lg-6 wow fadeInUp" data-wow-duration="0.5s" data-wow-delay="0.25s">
+          <form id="contact" action="" method="post"> {% csrf_token %} 
+            <div class="row">
+              <div class="col-lg-6 offset-lg-3">
+                <div class="section-heading">
+                  <h6>Linkshare</h6>
+                  <h2><span>Login</span></h2>
+                </div>
+              </div>
+              <div class="col-lg-6 offset-lg-3">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <fieldset>
+                        {{form.username}}
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                        {{form.password}}
+                    </fieldset>
+                  </div>
+                  <div class="col-lg-12">
+                    <fieldset>
+                      <button type="submit" id="form-submit" class="main-button ">작성 완료</button>
+                    </fieldset>
+                </br>
+                    </div>
+                    <a href="{% url 'join' %}">
+                    <div>
+                    아직 회원이 아니신가요? </br>
+                    회원가입 하러가기
+                    </div>
+                </a>
+                </div>
+              </div>
+             
+            </div>
+          </form>
         </div>
-        
-        <div class="mb-3">
-            <label class="form-label">비밀번호</label>
-            {{form.password}}
-        </div>  
-        <button type="submit" class="btn btn-primary">로그인</button>
-      </form>
+      </div>
     </div>
-</div>
-
+  </div>
   {% endblock content %}
 
   
