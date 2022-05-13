@@ -3,8 +3,6 @@
 
 {% block content %}
 
-<body>
-
   <div class="main-banner wow fadeIn animated" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
     <div class="container">
       <div class="row">
@@ -27,7 +25,7 @@
                       {% if user_pk %}
                       {% else %}
                     <div class="main-green-button scroll-to-section">
-                      <a href="#contact">Join</a>
+                      <a href="{% url 'join' %}">Join</a>
                     </div>
                     {% endif%}
                   </div>        
@@ -165,5 +163,3 @@
         </div>
   {% endblock content %}
   
-</body>
-</html>
