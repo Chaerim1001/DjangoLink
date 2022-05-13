@@ -27,6 +27,24 @@ def mypage(request):
         return redirect('login')
 
 
+def search(request):
+    user_pk = request.session.get('user')
+    content = {
+        'user_pk':user_pk
+    }
+
+    if request.method == 'GET':
+        path = request.get_full_path()
+        if path.split('search/')[1] != '':
+            search_word = request.GET['search_word']
+            if search_word:
+                category_list = Category.objects.filter(category_name__icontains = search_word, share = True)
+                content['category_list'] = category_list
+                content['search_word'] = search_word
+        return render(request, 'main/search.html', content)
+        
+
+
 def newCategory(request):
     user_pk = request.session.get('user')
     if user_pk:

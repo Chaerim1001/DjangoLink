@@ -1,1 +1,61 @@
-검색 결과 페이지
+{% extends '../base.html' %}
+{% load static %}
+
+{% block content %}
+    <div id="services" class="our-services section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+              <div class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                <input id="search_word" type="text" value="{{search_word}}">
+                <button type="submit" id="search_btn" onClick="search()">검색</button>
+              </br>
+            </br>
+        </br>
+                <h2>검색 결과</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+              {% for category in category_list %}
+            <div class="col-lg-4">
+                <a href ="{% url 'category_detail' category.category_id %}">
+              <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <div class="icon">
+                      <img src="{% static 'images/service-icon-01.png' %}" alt="">
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <div class="right-content">
+                      <h4>{{category.category_name}}</h4>
+                      <p>{{category.description}}</p>
+                      {{category.share}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+ {% endblock content %}
+  
+
+ {% block js_block %}
+ <script>
+     function search(){
+        const search_word = $('#search_word').val();
+        location.href="{% url 'search' %}" + "?search_word=" + search_word
+     }
+</script> 
+ {% endblock js_block %}
+
+</body>
+</html>

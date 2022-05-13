@@ -42,9 +42,11 @@ https://templatemo.com/tm-563-seo-dream
                 <!-- ***** Logo End ***** -->
                 <!-- ***** Menu Start ***** -->
                 <ul class="nav">
-                  <li class="scroll-to-section"><a href="{% url 'main' %}" class="active">Home</a></li>
-                  <li class="scroll-to-section"><a href="{% url 'mypage' %}">Mypage</a></li>
-                  {% if user_pk %}
+                    
+                    <li class="scroll-to-section"><a href="{% url 'main' %}" class="active">Home</a></li>
+                    <li class="scroll-to-section"><a href="{% url 'mypage' %}">Mypage</a></li>
+                    <li class="scroll-to-section"><a href="{% url 'search' %}">Search</a></li>
+                    {% if user_pk %}
                   <li class="scroll-to-section"><div class="main-blue-button"><a href="{% url 'logout' %}">Logout</a></div></li> 
                   {% else %}
                   <li class="scroll-to-section"><div class="main-blue-button"><a href="{% url 'login' %}">Login</a></div></li> 
@@ -78,6 +80,7 @@ https://templatemo.com/tm-563-seo-dream
                 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="http://code.jquery.com/jquery-latest.js"></script>
+       
         {% block js_block %}
         {% endblock js_block %}
 
