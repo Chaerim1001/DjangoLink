@@ -2,52 +2,57 @@
 {% load static %}
 
 {% block content %}
-        <div id="services" class="our-services section">
-            <div class="container">
+<div id="services" class="our-services section">
+    <div class="container">
               <div class="row">
                 <div class="col-lg-6 offset-lg-3">
+                </br> </br>
                   <div class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
                       <h2> {{user}}님의 카테고리</h2>
+                  </br>
+                      <div class="main-green-button scroll-to-section">
+                        <a href="{% url 'new_category' %}">new Category</a>
+                      </div>
                   </div>
                 </div>
             </div>
         </div>
-              
-            <div class="container-fluid">
-              <div class="row">
+        
+        <div class="container-fluid">
+            <div class="row">
                 {% for category in category_list %}
- 
+                
                 <div class="col-lg-4">
                     <a href ="{% url 'category_detail' category.category_id %}">
                   <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
-                    <div class="row">
-                      <div class="col-lg-4">
-                        <div class="icon">
-                          <img src="{% static 'images/service-icon-01.png' %}" alt="">
+                      <div class="row">
+                          <div class="col-lg-4">
+                              <div class="icon">
+                                  <img src="{% static 'images/service-icon-01.png' %}" alt="">
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="right-content">
+                                    <h4>{{category.category_name}}</h4>
+                                    <p>{{category.description}}</p>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                      <div class="col-lg-8">
-                        <div class="right-content">
-                            <h4>{{category.category_name}}</h4>
-                            <p>{{category.description}}</p>
-                        </div>
-                      </div>
-                    </div>
                     </div>
                 </a>
-                    </div>
-
-                    {% endfor%}
-                </div>
             </div>
+
+            {% endfor%}
         </div>
-        
+    </div>
+</div>
+
 {% endblock content %}
 
 
 {% block js_block %}
 <script> 
-  
-
+    
+    
 </script>
 {% endblock js_block %}
