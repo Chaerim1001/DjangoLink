@@ -44,7 +44,6 @@ def search(request):
         return render(request, 'main/search.html', content)
         
 
-
 def newCategory(request):
     user_pk = request.session.get('user')
     if user_pk:
@@ -70,16 +69,15 @@ def newCategory(request):
 
 def categoryDetail(request, category_id):
     user_pk = request.session.get('user')
-    if user_pk:
-        if request.method == 'GET':
-            category = Category.objects.get(category_id=category_id)
-            link_list = Link.objects.filter(category_id=category_id)
-            content = {
-                'category': category,
-                'link_list': link_list,
-                'user_pk': user_pk
-            }
-            return render(request, 'mypage/category_detail.html', content)
+    if request.method == 'GET':
+        category = Category.objects.get(category_id=category_id)
+        link_list = Link.objects.filter(category_id=category_id)
+        content = {
+            'category': category,
+            'link_list': link_list,
+            'user_pk': user_pk
+        }
+        return render(request, 'mypage/category_detail.html', content)
 
 
 def newLink(request, category_id):
@@ -154,4 +152,21 @@ def deleteCategory(request, category_id):
             category = Category.objects.get(category_id=category_id)
             category.delete()
             return redirect('mypage')
-            
+
+
+def scrabCategory(request, category_id):
+    user_pk = request.session.get('user')
+    if user_pk:
+        category = Category.objects.get(category_id=category_id)
+        if category.share: #공유 가능
+            new_category = Category()
+            new_category.id = User.objects.get(id=user_pk)
+            new_category.category_name = category.category_name
+            new_category.description = category.description
+            new_category.share = True
+            category.scrap = category.scrap + 1
+            new_category.save()
+            category.save()
+            return redirect('mypage')
+    else:
+        return redirect('login')

@@ -8,6 +8,7 @@ urlpatterns = [
     path('main/', views.main, name='main'),
     path('search/', views.search, name='search'),
     path('new/', views.newCategory, name='new_category'),    
+    path('scrabcategory/<int:category_id>', views.scrabCategory, name='scrab_category'),   
     path('category/<int:category_id>', views.categoryDetail, name='category_detail'),   
     path('category/addlink/<int:category_id>', views.newLink, name='new_link'),   
     path('category/updatelink/<int:category_id>', views.updateLink, name='update_link'),   

@@ -21,6 +21,7 @@
         <a href="{% url 'delete_category' category.category_id %}"><img src={% static 'images/delete.png' %} style="width: 13px;"></img></a></h6>
         <div class="main-green-button scroll-to-section">
             <a data-bs-toggle="modal" data-bs-target="#addLinkModal" id="link_btn">링크 추가</a>
+            <a href="{% url 'scrab_category' category.category_id %}">스크랩하기</a>
           </div>
               </div>
             </div>
@@ -111,8 +112,8 @@
 {% block js_block %}
 <script> 
    function addLink(){
-       link_url = $('#link_url').val();
-       description = $('#description').val() ;
+       const link_url = $('#link_url').val();
+       const description = $('#description').val() ;
        
        if(link_url == ''){
         alert('링크주소를 입력해주세요.');
@@ -152,8 +153,8 @@
     };
 
     function updateLink(link_id){
-        link_url = $('#update_link_url').val();
-        description = $('#update_description').val() ;
+        const link_url = $('#update_link_url').val();
+        const description = $('#update_description').val() ;
         
         if(link_url == ''){
          alert('링크주소를 입력해주세요.');
