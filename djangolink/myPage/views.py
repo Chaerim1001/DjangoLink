@@ -175,6 +175,14 @@ def scrabCategory(request, category_id):
             category.scrap = category.scrap + 1
             new_category.save()
             category.save()
+
+            link_list = Link.objects.filter(category_id_id = category.category_id)
+            for link in link_list: 
+                new_link = Link()
+                new_link.link_url = link.link_url
+                new_link.description = link.description
+                new_link.category_id = new_category
+                new_link.save()
             return redirect('mypage')
     else:
         return redirect('login')
