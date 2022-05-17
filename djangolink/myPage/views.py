@@ -8,7 +8,12 @@ from accounts.models import User
 def main(request):
     if request.method == 'GET':
         user_pk = request.session.get('user')
-        return render(request, 'main/home.html', {'user_pk':user_pk})
+        category_list = Category.objects.filter(share=True).order_by('-scrap', 'dt_created')[:3]
+        content = {
+                'category_list':category_list,
+                'user_pk': user_pk
+            }
+        return render(request, 'main/home.html', content)
 
 
 def mypage(request):

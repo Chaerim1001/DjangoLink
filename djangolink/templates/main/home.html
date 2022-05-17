@@ -110,6 +110,7 @@
     </div>
     <div class="container-fluid">
       <div class="row">
+          {% for category in category_list %}
         <div class="col-lg-4">
           <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.3s">
             <div class="row">
@@ -120,46 +121,15 @@
               </div>
               <div class="col-lg-8">
                 <div class="right-content">
-                  <h4>Similar Websites</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                  <h4>{{category.category_name}}</h4>
+                  <p>{{category.description}}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.4s">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="icon">
-                  <img src="{% static 'images/service-icon-02.png' %}" alt="">
-                </div>
-              </div>
-              <div class="col-lg-8">
-                <div class="right-content">
-                  <h4>Website Trends</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="icon">
-                  <img src="assets/images/service-icon-03.png" alt="">
-                </div>
-              </div>
-              <div class="col-lg-8">
-                <div class="right-content">
-                  <h4>Traffic Analysis</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
+        
+       
   {% endblock content %}
   
