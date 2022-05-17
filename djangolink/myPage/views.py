@@ -97,6 +97,8 @@ def newLink(request, category_id):
                 'data' : "add fail" if new_link is None else "add success"
                 }
             return JsonResponse(result)
+        else:
+            return redirect('login')
 
 
 def updateLink(request, category_id):
@@ -116,6 +118,8 @@ def updateLink(request, category_id):
                     'data' : "update fail" if link is None else "update success"
                     }
                 return JsonResponse(result)
+        else:
+            return redirect('login')
 
 
 def deleteLink(request, category_id, link_id):
@@ -125,6 +129,8 @@ def deleteLink(request, category_id, link_id):
             if link.category_id_id==category_id:
                 link.delete()
                 return redirect('category_detail', category_id)
+        else:
+            return redirect('login')
 
 
 def updateCategory(request, category_id):
@@ -144,6 +150,8 @@ def updateCategory(request, category_id):
                 category.share = False
             category.save()
             return redirect('category_detail', category_id)
+    else:
+        return redirect('login')
 
 
 def deleteCategory(request, category_id):
