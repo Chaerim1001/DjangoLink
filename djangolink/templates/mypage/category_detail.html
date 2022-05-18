@@ -12,16 +12,18 @@
                   <h2>{{category.category_name}}
                     {% if category.share == False %}
                     <img src={% static 'images/private.png' %} style="width: 13px;"></img>
-        {%else%}
-        <p>스크랩수: {{category.scrap}}</p>
-        {% endif %}
-                  </h2>
+                    {%else%}
+                    <p>스크랩수: {{category.scrap}}</p>
+                    {% endif %}
+                </h2>
                 <h6>{{category.description}}
-        <a href="{% url 'update_category' category.category_id %}"><img src={% static 'images/edit.png' %} style="width: 13px;"></img></a>
-        <a href="{% url 'delete_category' category.category_id %}"><img src={% static 'images/delete.png' %} style="width: 13px;"></img></a></h6>
-        <div class="main-green-button scroll-to-section">
-            <a data-bs-toggle="modal" data-bs-target="#addLinkModal" id="link_btn">링크 추가</a>
+                    <a href="{% url 'update_category' category.category_id %}"><img src={% static 'images/edit.png' %} style="width: 13px;"></img></a>
+                    <a href="{% url 'delete_category' category.category_id %}"><img src={% static 'images/delete.png' %} style="width: 13px;"></img></a></h6>
+                    <div class="main-green-button scroll-to-section">
+                        <a data-bs-toggle="modal" data-bs-target="#addLinkModal" id="link_btn">링크 추가</a>
+                        {% if category.share == True %}
             <a href="{% url 'scrab_category' category.category_id %}">스크랩하기</a>
+            {% endif %}
           </div>
               </div>
             </div>
@@ -38,7 +40,7 @@
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="icon">
-                      <img src="{% static 'images/service-icon-01.png' %}" alt="">
+                      <img src="{% static 'images/service-icon-02.png' %}" alt="">
                     </div>
                   </div>
                   <div class="col-lg-8">
