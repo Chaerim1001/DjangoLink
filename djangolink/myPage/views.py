@@ -164,6 +164,9 @@ def deleteCategory(request, category_id):
         if user_pk:
             category = Category.objects.get(category_id=category_id)
             category.delete()
+            link_list = Link.objects.filter(category_id_id=category_id)
+            for link in link_list:
+                link.delete()
             return redirect('mypage')
 
 
