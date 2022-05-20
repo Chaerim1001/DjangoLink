@@ -20,7 +20,9 @@
                     <a href="{% url 'update_category' category.category_id %}"><img src={% static 'images/edit.png' %} style="width: 13px;"></img></a>
                     <a href="{% url 'delete_category' category.category_id %}"><img src={% static 'images/delete.png' %} style="width: 13px;"></img></a></h6>
                     <div class="main-green-button scroll-to-section">
+                        {% if user == 'user' %}
                         <a data-bs-toggle="modal" data-bs-target="#addLinkModal" id="link_btn">링크 추가</a>
+                        {% endif %}
                         {% if category.share == True %}
             <a href="{% url 'scrab_category' category.category_id %}">스크랩하기</a>
             {% endif %}

@@ -82,6 +82,12 @@ def categoryDetail(request, category_id):
             'link_list': link_list,
             'user_pk': user_pk
         }
+        
+        if user_pk == category.id_id:
+            content['user'] = 'user'
+        else:
+            content['user'] = None
+
         return render(request, 'mypage/category_detail.html', content)
 
 
